@@ -8,13 +8,13 @@ It allows users mark a task as complete, updating it's status visually by crossi
 1. **Clone or download the repository**
 
    ```bash
-   git clone <your-repo-link>
+   git clone https://github.com/Kansoldev/HNG14-todo-card-component
    ```
 
 2. **Navigate into the project folder**
 
    ```bash
-   cd todo-card-component
+   cd HNG14-todo-card-component
    ```
 
 3. **Open the project**
