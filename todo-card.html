@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo Card</title>
+    <link rel="stylesheet" href="./todo-card.css" />
+  </head>
+
+  <body>
+    <article class="todo-card" data-testid="test-todo-card">
+      <header class="card-header">
+        <input
+          type="checkbox"
+          class="card-checkbox"
+          id="task-check"
+          onchange="toggleDone(this)"
+          aria-label="Check todo"
+          data-testid="test-todo-complete-toggle"
+        />
+
+        <div class="card-header-body">
+          <div class="card-title-row">
+            <h2 class="task-title" data-testid="test-todo-title">
+              Redesign onboarding flow for mobile
+            </h2>
+
+            <span class="badge badge-high" data-testid="test-todo-priority"
+              >High</span
+            >
+          </div>
+
+          <p class="task-desc" data-testid="test-todo-description">
+            Revamp the new user onboarding experience with cleaner step
+            progression and contextual tooltips across all mobile screen sizes.
+          </p>
+        </div>
+
+        <div class="card-actions">
+          <button
+            class="icon-btn"
+            title="Edit task"
+            aria-label="Edit task"
+            data-testid="test-todo-edit-button"
+            onclick="handleEdit()"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+              />
+              <path
+                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+              />
+            </svg>
+          </button>
+
+          <button
+            class="icon-btn danger"
+            title="Delete task"
+            aria-label="Delete task"
+            data-testid="test-todo-delete-button"
+            onclick="handleDelete()"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14H6L5 6" />
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+              <path d="M9 6V4h6v2" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <span
+        id="status"
+        class="badge badge-inprogress"
+        data-testid="test-todo-status"
+      >
+        <span class="status-dot dot-inprogress"></span>
+        In progress
+      </span>
+
+      <div class="card-date">
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#888"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+        <time class="due-date" data-testid="test-todo-due-date"></time>
+        <time
+          class="badge badge-time"
+          data-testid="test-todo-time-remaining"
+        ></time>
+      </div>
+
+      <ul class="todo-tags" data-testid="test-todo-tags">
+        <li class="tag-pill" data-testid="test-todo-tag-work">Work</li>
+        <li class="tag-pill" data-testid="test-todo-tag-urgent">Urgent</li>
+      </ul>
+    </article>
+
+    <script>
+      const currentDate = new Date();
+      const dueDate = new Date("Tue April 28 2026 15:30:00");
+      const dueDateElement = document.querySelector(".due-date");
+      const dueDaysElement = document.querySelector(".badge-time");
+      const title = document.querySelector(".task-title");
+      const status = document.querySelector(".badge-inprogress");
+      const remainingTime = dueDate.getUTCDate() - currentDate.getUTCDate();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const formattedDueDate = dueDate.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+
+        dueDateElement.innerHTML = formattedDueDate;
+        calcDueDays();
+      });
+
+      setInterval(() => {
+        calcDueDays();
+      }, 60000);
+
+      function calcDueDays() {
+        if (remainingTime === 1) {
+          dueDaysElement.innerHTML = "Due tomorrow";
+        } else if (remainingTime > 0) {
+          dueDaysElement.innerHTML = `Due in ${remainingTime} days`;
+        } else {
+          dueDaysElement.innerHTML = "Due now!";
+        }
+      }
+
+      function toggleDone(checkbox) {
+        title.classList.toggle("completed", checkbox.checked);
+        status.classList.toggle("badge-done", checkbox.checked);
+        status.lastChild.textContent = checkbox.checked
+          ? "Done"
+          : "In progress";
+        dueDaysElement.style.display = checkbox.checked ? "none" : "";
+      }
+
+      function handleEdit() {
+        alert("Edit clicked");
+      }
+
+      function handleDelete() {
+        alert("Delete clicked");
+      }
+    </script>
+  </body>
+</html>
