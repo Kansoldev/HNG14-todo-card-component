@@ -230,3 +230,101 @@ body {
   color: #666;
   border: 0.5px solid rgba(0, 0, 0, 0.1);
 }
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 1.25rem;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close:hover {
+  color: #333;
+}
+
+.modal-content > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.modal-content label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="date"],
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+  outline: none;
+  border-color: #999;
+}
+
+.modal-content button {
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+  transition: background 0.15s;
+}
+
+.modal-content button:first-of-type {
+  background: rgb(81, 81, 243);
+  color: #fff;
+  border-color: rgb(81, 81, 243);
+}
+
+.modal-content button:first-of-type:hover {
+  background: rgb(109, 109, 248);
+}
+
+.modal-content button:last-of-type:hover {
+  background: #f5f5f5;
+}

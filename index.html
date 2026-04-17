@@ -128,9 +128,55 @@
       </ul>
     </article>
 
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <div>
+          <label for="">Task Title</label>
+          <input type="text" id="test-title" />
+        </div>
+
+        <div>
+          <label for="">Task Description</label>
+          <textarea id="test-desc" rows="5"></textarea>
+        </div>
+
+        <div>
+          <label for="">Priority</label>
+          <select name="" id="priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="">Status</label>
+          <select id="task-status" name="">
+            <option value="Pending">Pending</option>
+            <option value="In progress">In progress</option>
+            <option value="Done">Done</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="">Due date</label>
+          <input type="date" name="" id="due-date-picker" />
+        </div>
+
+        <div style="margin-top: 20px">
+          <button onclick="updateTodo()">Save</button>
+          <button>Cancel</button>
+        </div>
+      </div>
+    </div>
+
     <script>
       const currentDate = new Date();
       const dueDate = new Date("Tue April 28 2026 15:30:00");
+      const modal = document.querySelector("#myModal");
+      const closeBtn = document.querySelector(".close");
       const dueDateElement = document.querySelector(".due-date");
       const dueDaysElement = document.querySelector(".badge-time");
       const title = document.querySelector(".task-title");
@@ -172,8 +218,12 @@
       }
 
       function handleEdit() {
-        alert("Edit clicked");
+        modal.style.display = "flex";
       }
+
+      closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
 
       function handleDelete() {
         alert("Delete clicked");
