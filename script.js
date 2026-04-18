@@ -59,7 +59,9 @@ function calcDueDays() {
 }
 
 setInterval(() => {
-  calcDueDays();
+  if (status.textContent !== "Done") {
+    calcDueDays();
+  }
 }, 60000);
 
 editForm.addEventListener("submit", (e) => {
