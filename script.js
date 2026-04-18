@@ -125,7 +125,9 @@ function toggleDone(checkbox) {
   title.classList.toggle("completed", checkbox.checked);
   status.classList.toggle("badge-done", checkbox.checked);
   status.lastChild.textContent = checkbox.checked ? "Done" : "Pending";
-  dueDaysElement.style.display = checkbox.checked ? "none" : "";
+  dueDaysElement.textContent = checkbox.checked
+    ? "Completed"
+    : `Due in ${remainingTime} days`;
 }
 
 function padNum(num) {
