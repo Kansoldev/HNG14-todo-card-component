@@ -161,6 +161,11 @@ body {
   color: #0f6e56;
 }
 
+.badge-pending {
+  background: #f1efe8;
+  color: #5f5e5a;
+}
+
 .badge-done {
   background: #2e8b57;
   color: #fff;
@@ -175,6 +180,10 @@ body {
 
 .dot-inprogress {
   background: #1d9e75;
+}
+
+.dot-pending {
+  background: #888780;
 }
 
 .dot-done {
