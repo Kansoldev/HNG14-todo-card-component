@@ -130,8 +130,6 @@
 
     <div id="myModal" class="modal">
       <form id="editTaskForm" class="modal-content">
-        <span class="close">&times;</span>
-
         <div>
           <label for="">Task Title</label>
           <input type="text" id="modal-title" />
@@ -167,11 +165,12 @@
 
         <div style="margin-top: 20px">
           <button>Save</button>
-          <button>Cancel</button>
+          <button type="button" id="cancelBtn">Cancel</button>
         </div>
       </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.20/dayjs.min.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
