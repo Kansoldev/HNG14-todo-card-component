@@ -1,5 +1,5 @@
 const currentDate = dayjs();
-const dueDate = dayjs("04-30-2026 15:30:00");
+let dueDate = dayjs("04-30-2026");
 const modal = document.querySelector("#myModal");
 const closeBtn = document.querySelector(".close");
 const dueDateElement = document.querySelector(".due-date");
@@ -15,6 +15,7 @@ const checkboxElement = document.querySelector("#task-check");
 const cancelButton = document.querySelector("#cancelBtn");
 const priority = document.querySelector("[data-testid='test-todo-priority']");
 const prioritySelect = document.querySelector("#priority");
+const datePicker = document.querySelector("#due-date-picker");
 const remainingDays = dueDate.date() - currentDate.date();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -43,6 +44,8 @@ editForm.addEventListener("submit", (e) => {
   priority.lastChild.textContent = prioritySelect.value;
   title.textContent = modalTitle.value;
   desc.textContent = modalDesc.value;
+  dueDate = dayjs(datePicker.value); // Reset dueDate so it reflects users selection
+  dueDateElement.textContent = dayjs(datePicker.value).format("MMM D, YYYY");
   priority.className = "badge ";
 
   if (statusSelect.value === "Done") {
@@ -96,9 +99,18 @@ function toggleDone(checkbox) {
   dueDaysElement.style.display = checkbox.checked ? "none" : "";
 }
 
+function padNum(num) {
+  if (num < 10) {
+    return `0${num}`;
+  }
+
+  return num;
+}
+
 function handleEdit() {
   modal.style.display = "flex";
   statusSelect.value = status.textContent.trim();
   modalTitle.value = title.textContent.trim();
   modalDesc.value = desc.textContent.trim();
+  datePicker.value = `${dueDate.year()}-${padNum(dueDate.month() + 1)}-${padNum(dueDate.date())}`;
 }
