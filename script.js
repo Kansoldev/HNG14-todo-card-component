@@ -1,5 +1,6 @@
-const currentDate = dayjs();
 let dueDate = dayjs("04-30-2026");
+let remainingTime = 0;
+const currentDate = dayjs();
 const modal = document.querySelector("#myModal");
 const closeBtn = document.querySelector(".close");
 const dueDateElement = document.querySelector(".due-date");
@@ -16,7 +17,8 @@ const cancelButton = document.querySelector("#cancelBtn");
 const priority = document.querySelector("[data-testid='test-todo-priority']");
 const prioritySelect = document.querySelector("#priority");
 const datePicker = document.querySelector("#due-date-picker");
-const remainingDays = dueDate.date() - currentDate.date();
+const dueDateDaysInMonth = dueDate.daysInMonth();
+const currentDateDaysInMonth = currentDate.daysInMonth();
 
 document.addEventListener("DOMContentLoaded", () => {
   dueDateElement.innerHTML = dueDate.format("MMM D, YYYY");
@@ -24,12 +26,35 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function calcDueDays() {
-  if (remainingDays === 1) {
-    dueDaysElement.innerHTML = "Due tomorrow";
-  } else if (remainingDays > 0) {
-    dueDaysElement.innerHTML = `Due in ${remainingDays} days`;
-  } else {
-    dueDaysElement.innerHTML = "Due now!";
+  const dueDateMonth = dueDate.month();
+  const currentDateMonth = currentDate.month();
+  const dueDayOfMonth = dueDate.date();
+  const currentDayOfMonth = currentDate.date();
+
+  if (dueDateMonth === currentDateMonth) {
+    remainingTime = dueDayOfMonth - currentDayOfMonth;
+
+    if (remainingTime === 1) {
+      dueDaysElement.innerHTML = "Due tomorrow";
+    } else if (remainingTime > 0) {
+      dueDaysElement.innerHTML = `Due in ${remainingTime} days`;
+    } else if (remainingTime < 0) {
+      dueDaysElement.innerHTML = `overdue by ${Math.abs(remainingTime)} day(s)`;
+    } else {
+      dueDaysElement.innerHTML = "Due now!";
+    }
+  }
+
+  if (dueDateMonth > currentDateMonth) {
+    const remainingDaysInCurrentMonth =
+      currentDateDaysInMonth - currentDayOfMonth;
+    remainingTime = dueDayOfMonth + remainingDaysInCurrentMonth;
+
+    dueDaysElement.innerHTML = `Due in ${remainingTime} days`;
+  }
+
+  if (dueDateMonth < currentDateMonth) {
+    dueDaysElement.innerHTML = "Long overdue!";
   }
 }
 
@@ -82,6 +107,8 @@ editForm.addEventListener("submit", (e) => {
     default:
       priority.className += "badge-high";
   }
+
+  calcDueDays();
 });
 
 cancelBtn.addEventListener("click", () => {
