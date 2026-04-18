@@ -134,12 +134,12 @@
 
         <div>
           <label for="">Task Title</label>
-          <input type="text" id="test-title" />
+          <input type="text" id="modal-title" />
         </div>
 
         <div>
           <label for="">Task Description</label>
-          <textarea id="test-desc" rows="5"></textarea>
+          <textarea id="modal-desc" rows="5"></textarea>
         </div>
 
         <div>
@@ -180,6 +180,9 @@
       const dueDateElement = document.querySelector(".due-date");
       const dueDaysElement = document.querySelector(".badge-time");
       const title = document.querySelector(".task-title");
+      const desc = document.querySelector(".task-desc");
+      const modalTitle = document.querySelector("#modal-title");
+      const modalDesc = document.querySelector("#modal-desc");
       const status = document.querySelector("#status");
       const editForm = document.querySelector("#editTaskForm");
       const statusSelect = document.querySelector("#task-status");
@@ -225,11 +228,18 @@
       function handleEdit() {
         modal.style.display = "flex";
         statusSelect.value = status.textContent.trim();
+        modalTitle.value = title.textContent.trim();
+        modalDesc.value = desc.textContent.trim();
       }
 
       editForm.addEventListener("submit", (e) => {
         e.preventDefault();
+
         modal.style.display = "none";
+        priority.lastChild.textContent = prioritySelect.value;
+        title.textContent = modalTitle.value;
+        desc.textContent = modalDesc.value;
+        priority.className = "badge ";
 
         if (statusSelect.value === "Done") {
           checkboxElement.checked = true;
@@ -252,9 +262,6 @@
           status.className = `badge ${statusSelect.value === "Pending" ? "badge-pending" : "badge-inprogress"}`;
           status.lastChild.textContent = statusSelect.value;
         }
-
-        priority.lastChild.textContent = prioritySelect.value;
-        priority.className = "badge ";
 
         switch (prioritySelect.value) {
           case "Low":
