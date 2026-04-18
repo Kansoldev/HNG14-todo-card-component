@@ -184,6 +184,10 @@
       const editForm = document.querySelector("#editTaskForm");
       const statusSelect = document.querySelector("#task-status");
       const checkboxElement = document.querySelector("#task-check");
+      const priority = document.querySelector(
+        "[data-testid='test-todo-priority']",
+      );
+      const prioritySelect = document.querySelector("#priority");
       const remainingTime = dueDate.getUTCDate() - currentDate.getUTCDate();
 
       document.addEventListener("DOMContentLoaded", () => {
@@ -247,6 +251,22 @@
 
           status.className = `badge ${statusSelect.value === "Pending" ? "badge-pending" : "badge-inprogress"}`;
           status.lastChild.textContent = statusSelect.value;
+        }
+
+        priority.lastChild.textContent = prioritySelect.value;
+        priority.className = "badge ";
+
+        switch (prioritySelect.value) {
+          case "Low":
+            priority.className += "badge-low";
+            break;
+
+          case "Medium":
+            priority.className += "badge-medium";
+            break;
+
+          default:
+            priority.className += "badge-high";
         }
       });
 
